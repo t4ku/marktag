@@ -1,0 +1,5 @@
+require "marktag"
+
+MarkTag.run(ARGV*)
+
+

@@ -17,8 +17,9 @@ second header
 EOS
 
     md_tag = <<-EOS
-first header lib/marktag.rb /^first header$/;" header header:firstheader
-second header lib/marktag.rb /^second header$/;" header header:firstheader:secondheader
+first_header lib/marktag.rb /^first header$/;" header header:first_header
+second_header lib/marktag.rb /^second header$/;" header header:first_header:second_header
+third_header lib/marktag.rb /^third header$/;" header header:first_header:second_header:third_header
 EOS
 
    # This is the tag file of this ruby script
@@ -39,8 +40,40 @@ EOS
    # http://en.wikipedia.org/wiki/Ctags#Exuberant_Ctags_2
    # {tagname}<Tab>{tagfile}<Tab>{tagaddress}[;"<Tab>{tagfield}...]
 
-    assert_equal  "EOS",md.render(md_text)
+    assert_equal  md_tag,md.render(md_text)
    end
+
+  def test_headers_with_paragrahs
+    md = Redcarpet::Markdown.new(MarkTag::ParserProxy::HeaderFilter)
+
+    md_text = <<-EOS
+first header
+============
+
+first paragraph
+
+second header
+------------
+
+second paragraph
+
+### third header
+
+third paragraph
+
+EOS
+
+    md_tag = <<-EOS
+first_header lib/marktag.rb /^first header$/;" header header:first_header
+second_header lib/marktag.rb /^second header$/;" header header:first_header:second_header
+third_header lib/marktag.rb /^third header$/;" header header:first_header:second_header:third_header
+EOS
+
+    assert_equal md_tag,md.render(md_text)
+  end
+
+  def test_invalid_sequence_of_headers
+  end
 end
 
 class RendererTest < MiniTest::Unit::TestCase

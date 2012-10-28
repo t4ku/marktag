@@ -2,10 +2,8 @@ require "marktag/version"
 require "redcarpet"
 
 module MarkTag
-  # Your code goes here...
-  class Runner
-    def initialize(parser,renderer)
-
+  class << self
+    def run(*args)
     end
   end
 
@@ -22,7 +20,6 @@ module MarkTag
         end
       end
     end
-
     # 
     # Redcarpet::Render::HTML
     #
@@ -52,13 +49,34 @@ module MarkTag
 
     def render(headers)
       tag = ""
+      level_headers = []
       headers.each_with_index do |header,idx|
-        level = header.last
+        level = header.last - 1
+        level_headers[level] = header.first
         name  = header.first
-        tag += "header lib/marktag /^#{name}$/ header header:#{name}\n"
+
+        header_identifier = get_header_identifier(level_headers,level)
+        esq_name = name.gsub(/\s/,"_")
+        tag += "#{esq_name} lib/marktag.rb /^#{name}$/;\" header #{header_identifier}"
+
+        tag += "\n"
       end
       return tag
     end
 
+    def get_header_identifier(level_headers,target_level)
+      identifiers = []
+      target_level.downto(0) do |l|
+        identifier = level_headers.values_at(l) != nil  ? level_headers[l] : "none"
+        identifiers.push(identifier)
+      end
+
+      ctag_class = "header:"
+      header_str = identifiers.reverse.map do |i|
+        i.gsub(/\s/,"_")
+      end.join ":"
+
+      return ctag_class + header_str
+    end
   end
 end
