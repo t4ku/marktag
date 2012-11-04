@@ -17,9 +17,9 @@ second header
 EOS
 
     md_tag = <<-EOS
-first_header lib/marktag.rb /^first header$/;" header header:first_header
-second_header lib/marktag.rb /^second header$/;" header header:first_header:second_header
-third_header lib/marktag.rb /^third header$/;" header header:first_header:second_header:third_header
+first_header lib/marktag.rb /^first header$/;" h
+second_header lib/marktag.rb /^second header$/;" h header:first_header
+third_header lib/marktag.rb /^third header$/;" h header:first_header:second_header
 EOS
 
    # This is the tag file of this ruby script
@@ -64,9 +64,9 @@ third paragraph
 EOS
 
     md_tag = <<-EOS
-first_header lib/marktag.rb /^first header$/;" header header:first_header
-second_header lib/marktag.rb /^second header$/;" header header:first_header:second_header
-third_header lib/marktag.rb /^third header$/;" header header:first_header:second_header:third_header
+first_header lib/marktag.rb /^first header$/;" h
+second_header lib/marktag.rb /^second header$/;" h header:first_header
+third_header lib/marktag.rb /^third header$/;" h header:first_header:second_header
 EOS
 
     assert_equal md_tag,md.render(md_text)

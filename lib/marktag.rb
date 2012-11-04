@@ -3,7 +3,22 @@ require "redcarpet"
 
 module MarkTag
   class << self
-    def run(*args)
+    def get_renderer
+      return Redcarpet::Markdown.new(ParserProxy::HeaderFilter)
+    end
+
+    def run(args)
+      if args.size > 0
+        file = args.last
+        if File.exists?(file)
+          markdown = File.read(file)
+          renderer = get_renderer()
+          # get TagRenderer from Redcarpet postprocess hook
+          tag_renderer =  renderer.render(markdown)
+          # print tag file with given file path
+          print tag_renderer.render(file)
+        end
+      end
     end
   end
 
@@ -40,24 +55,32 @@ module MarkTag
 
        # RedCarpet Post-process hook
        def postprocess(doc)
-         Renderer.new.render(@proxy.headers)
+         TagRenderer.new(@proxy.headers)
        end
     end
   end
 
-  class Renderer
+  class TagRenderer
+    def initialize(headers)
+      @headers = headers
+    end
 
-    def render(headers)
+    def render(file_path)
       tag = ""
       level_headers = []
-      headers.each_with_index do |header,idx|
+      @headers.each_with_index do |header,idx|
         level = header.last - 1
         level_headers[level] = header.first
         name  = header.first
 
         header_identifier = get_header_identifier(level_headers,level)
         esq_name = name.gsub(/\s/,"_")
-        tag += "#{esq_name} lib/marktag.rb /^#{name}$/;\" header #{header_identifier}"
+
+        if (header_identifier)
+          tag += "#{esq_name}\t#{file_path}\t/#{name}/;\"\th\t#{header_identifier}"
+        else
+          tag += "#{esq_name}\t#{file_path}\t/#{name}/;\"\th"
+        end
 
         tag += "\n"
       end
@@ -65,8 +88,12 @@ module MarkTag
     end
 
     def get_header_identifier(level_headers,target_level)
+      if (target_level) == 0
+        return nil
+      end
+
       identifiers = []
-      target_level.downto(0) do |l|
+      (target_level -1).downto(0) do |l|
         identifier = level_headers.values_at(l) != nil  ? level_headers[l] : "none"
         identifiers.push(identifier)
       end
@@ -74,7 +101,7 @@ module MarkTag
       ctag_class = "header:"
       header_str = identifiers.reverse.map do |i|
         i.gsub(/\s/,"_")
-      end.join ":"
+      end.join "."
 
       return ctag_class + header_str
     end
