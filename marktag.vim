@@ -3,7 +3,7 @@ if executable('marktag')
         \ 'ctagstype' : 'markdown',
         \ 'ctagsbin' : 'marktag',
         \ 'kinds' : [
-            \ 'h:header:0:1'
+            \ 'h:header'
         \ ],
         \ 'sro' : '.',
         \ 'kind2scope' : {
