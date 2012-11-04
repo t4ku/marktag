@@ -74,12 +74,13 @@ module MarkTag
         name  = header.first
 
         header_identifier = get_header_identifier(level_headers,level)
-        esq_name = name.gsub(/\s/,"_")
+        # esq_name = name.gsub(/\s/,"_")
+        esq_name = name
 
         if (header_identifier)
-          tag += "#{esq_name}\t#{file_path}\t/#{name}/;\"\th\t#{header_identifier}"
+          tag += "#{esq_name}\t#{file_path}\t/^\\.\\*#{name}$/;\"\th\t#{header_identifier}"
         else
-          tag += "#{esq_name}\t#{file_path}\t/#{name}/;\"\th"
+          tag += "#{esq_name}\t#{file_path}\t/^\\.\\*#{name}$/;\"\th"
         end
 
         tag += "\n"
@@ -100,7 +101,8 @@ module MarkTag
 
       ctag_class = "header:"
       header_str = identifiers.reverse.map do |i|
-        i.gsub(/\s/,"_")
+        i
+        #i.gsub(/\s/,"_")
       end.join "."
 
       return ctag_class + header_str

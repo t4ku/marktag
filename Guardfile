@@ -23,3 +23,10 @@ guard 'minitest' do
   # watch(%r|^app/helpers/(.*)\.rb|)     { |m| "test/helpers/#{m[1]}_test.rb" }
   # watch(%r|^app/models/(.*)\.rb|)      { |m| "test/unit/#{m[1]}_test.rb" }  
 end
+
+guard :shell do
+  watch("lib/marktag.rb") { |m|
+    system "gem build marktag.gemspec"
+    system "gem install --no-ri --no-rdoc marktag-0.0.1.gem"
+  }
+end

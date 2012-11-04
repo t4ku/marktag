@@ -1,6 +1,6 @@
 # Marktag
 
-## What is this program for?
+## What is this program for
 
 Add markdown support for Vim Tagbar plugin.
 It generates ctags file for markdown document. 
