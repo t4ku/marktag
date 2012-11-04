@@ -5,7 +5,7 @@
 This is to hadd markdown support for Vim Tagbar plugin.
 It generates ctags file for markdown document. 
 
-![tagbar](https://github.com/t4ku/marktag/raw/master/scrennshot.png "screenshot")
+![tagbar](https://github.com/t4ku/marktag/raw/master/screenshot.png "screenshot")
 
 ## About Ctags and Vim Tagbar  plugin
 
