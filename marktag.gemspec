@@ -12,7 +12,7 @@ Gem::Specification.new do |gem|
   gem.summary       = %q{Write a gem summary}
   gem.homepage      = ""
 
-  gem.add_dependency('redcarpet')
+  gem.add_dependency('redcarpet','~>3.1.0')
 
   gem.add_development_dependency('guard')
   gem.add_development_dependency('guard-minitest')
