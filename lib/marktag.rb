@@ -78,9 +78,9 @@ module MarkTag
         esq_name = name
 
         if (header_identifier)
-          tag += "#{esq_name}\t#{file_path}\t/^\\.\\*#{name}$/;\"\th\t#{header_identifier}"
+          tag += "#{esq_name}\t#{file_path}\t/^#\\+\\s\\*#{name}$/;\"\th\t#{header_identifier}"
         else
-          tag += "#{esq_name}\t#{file_path}\t/^\\.\\*#{name}$/;\"\th"
+          tag += "#{esq_name}\t#{file_path}\t/^#\\+\\s\\*#{name}$/;\"\th"
         end
 
         tag += "\n"
