@@ -29,9 +29,9 @@ EOS
    # {tagname}<Tab>{tagfile}<Tab>{tagaddress}[;"<Tab>{tagfield}...]
 
     md_tag = <<-EOS
-first header\tlib/marktag.rb\t/^\\.\\*first header$/;"\th
-second header\tlib/marktag.rb\t/^\\.\\*second header$/;"\th\theader:first header
-third header\tlib/marktag.rb\t/^\\.\\*third header$/;"\th\theader:first header.second header
+first header\tlib/marktag.rb\t/^#\\+\\s\\*first header$/;"\th
+second header\tlib/marktag.rb\t/^#\\+\\s\\*second header$/;"\th\theader:first header
+third header\tlib/marktag.rb\t/^#\\+\\s\\*third header$/;"\th\theader:first header.second header
 EOS
 
     tag_renderer = md.render(md_text)
