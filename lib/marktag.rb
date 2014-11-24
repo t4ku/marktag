@@ -35,7 +35,7 @@ module MarkTag
         end
       end
     end
-    # 
+    #
     # Redcarpet::Render::HTML
     #
     # https://github.com/vmg/redcarpet
@@ -43,7 +43,7 @@ module MarkTag
     # http://dev.af83.com/2012/02/27/howto-extend-the-redcarpet2-markdown-lib.html
 
     class HeaderFilter < Redcarpet::Render::HTML
-       def header(header,header_level,anchor)
+       def header(header,header_level)
          unless @proxy
            @proxy = HeaderProxy
            @proxy.init_document
