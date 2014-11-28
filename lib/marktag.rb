@@ -35,7 +35,7 @@ module MarkTag
         end
       end
     end
-    # 
+    #
     # Redcarpet::Render::HTML
     #
     # https://github.com/vmg/redcarpet
@@ -43,7 +43,7 @@ module MarkTag
     # http://dev.af83.com/2012/02/27/howto-extend-the-redcarpet2-markdown-lib.html
 
     class HeaderFilter < Redcarpet::Render::HTML
-       def header(header,header_level,anchor)
+       def header(header,header_level)
          unless @proxy
            @proxy = HeaderProxy
            @proxy.init_document
@@ -78,9 +78,9 @@ module MarkTag
         esq_name = name
 
         if (header_identifier)
-          tag += "#{esq_name}\t#{file_path}\t/^\\.\\*#{name}$/;\"\th\t#{header_identifier}"
+          tag += "#{esq_name}\t#{file_path}\t/^#\\+\\s\\*#{name}$/;\"\th\t#{header_identifier}"
         else
-          tag += "#{esq_name}\t#{file_path}\t/^\\.\\*#{name}$/;\"\th"
+          tag += "#{esq_name}\t#{file_path}\t/^#\\+\\s\\*#{name}$/;\"\th"
         end
 
         tag += "\n"
